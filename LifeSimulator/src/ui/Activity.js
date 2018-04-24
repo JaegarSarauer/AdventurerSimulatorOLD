@@ -1,9 +1,9 @@
 import React from 'react';
 import { Button, View, Text, StyleSheet, FlatList, TouchableOpacity} from 'react-native';
-import FloatingHearts from 'react-native-floating-hearts';
 import {Player, PP} from '../state/player'; 
 import { ITEM } from '../definitions/Item';
 import { SKILL } from '../definitions/Skill';
+import Float from './Float';
 
 export default class Activity extends React.Component {
     constructor(props) {
@@ -11,8 +11,6 @@ export default class Activity extends React.Component {
         this.state = {
             progress: 0,
             progressIncrement: 1,
-            progressCount: 0,
-            lootCount: 0,
         };
     }
 
@@ -31,14 +29,10 @@ export default class Activity extends React.Component {
             PP.addItem(this.props.reward.item, this.props.reward.itemAmount);
             PP.addXP(SKILL.Woodcutting, this.props.reward.xp);
             this.getProgressIncrement();
-            this.setState({
-              lootCount: this.state.lootCount + 1
-            });
+            this.props.onFloat('loot', 1);
         }
-        this.setState({
-          progress, 
-          progressCount: this.state.progressCount + 1
-        });
+        this.setState({progress});
+        this.props.onFloat('progress', 1);
     }
 
   render() {
@@ -48,8 +42,6 @@ export default class Activity extends React.Component {
           <Text style={styles.text}>{this.props.title}</Text>
           <Text style={styles.subText}>{Math.floor((this.state.progress / this.props.maxProgress) * 100) + '%'}</Text>
         </TouchableOpacity>
-        <FloatingHearts count={this.state.progressCount}/>
-        <FloatingHearts count={this.state.lootCount}/>
       </View>
     );
   }

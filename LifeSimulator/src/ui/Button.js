@@ -1,7 +1,7 @@
 import React from 'react';
 import { View, Text, StyleSheet, TouchableOpacity} from 'react-native';
 
-export default class Activity extends React.Component {
+export default class Button extends React.Component {
   render() {
     return (
       <View style={styles.container}>

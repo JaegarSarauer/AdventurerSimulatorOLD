@@ -4,8 +4,23 @@ import {Player, PP} from '../../state/player';
 import { ITEM } from '../../definitions/Item';
 import { SKILL } from '../../definitions/Skill';
 import Activity from './../Activity';
+import Float from '../Float';
 
 export default class WoodcuttingActivities extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      floattreeloot: 0,
+      floattreeprogress: 0, 
+    };
+  }
+
+  addFloat(id, type, count) {
+    let float = this.state['float'+id+type];
+    float += count;
+    this.setState({['float'+id+type]: float});
+  }
+
   render() {
     return (
       <View style={styles.container}>
@@ -15,7 +30,10 @@ export default class WoodcuttingActivities extends React.Component {
             title='Tree'
             maxProgress={8}
             reward={{item: ITEM.Logs, amount: 1, xp: 5}}
+            onFloat={(type, count) => this.addFloat('tree', type, count)}
           />
+          <Float count={this.state.floattreeloot}/>
+          <Float count={this.state.floattreeprogress}/>
           </View>
         }
         {PP.hasLevel(SKILL.Woodcutting, 15) && 
