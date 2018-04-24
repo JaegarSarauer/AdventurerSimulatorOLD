@@ -5,6 +5,7 @@ import { ITEM } from '../../definitions/Item';
 import { SKILL } from '../../definitions/Skill';
 import Activity from './../Activity';
 import Float from '../Float';
+import * as Assets from '../../definitions/Assets';
 
 export default class WoodcuttingActivities extends React.Component {
   constructor(props) {
@@ -26,14 +27,14 @@ export default class WoodcuttingActivities extends React.Component {
       <View style={styles.container}>
         {PP.hasLevel(SKILL.Woodcutting, 1) && 
           <View style={styles.activity}>
-          <Activity 
-            title='Tree'
-            maxProgress={8}
-            reward={{item: ITEM.Logs, amount: 1, xp: 5}}
-            onFloat={(type, count) => this.addFloat('tree', type, count)}
-          />
-          <Float count={this.state.floattreeloot}/>
-          <Float count={this.state.floattreeprogress}/>
+            <Activity 
+              title='Tree'
+              maxProgress={8}
+              reward={{item: ITEM.Logs, amount: 1, xp: 5}}
+              onFloat={(type, count) => this.addFloat('tree', type, count)}
+            />
+            <Float count={this.state.floattreeprogress} icon={Assets.ICON_Smash}/>
+            <Float count={this.state.floattreeloot} icon={ITEM.Logs.icon}/>
           </View>
         }
         {PP.hasLevel(SKILL.Woodcutting, 15) && 

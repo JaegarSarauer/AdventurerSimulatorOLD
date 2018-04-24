@@ -1,7 +1,8 @@
 import React from 'react';
-import { Button, View, Text, StyleSheet, FlatList, Modal} from 'react-native';
+import { Button, View, Text, StyleSheet, FlatList, Modal, Image} from 'react-native';
 import {Player, PP} from '../state/player'; 
 import { ITEM } from '../definitions/Item';
+import * as Assets from '../definitions/Assets';
 
 export default class Shop extends React.Component {
   constructor(props) {
@@ -35,12 +36,9 @@ export default class Shop extends React.Component {
           extraData={this.state.updateList}
           keyExtractor={(item, index) => item.id.toString()}
           renderItem={({item}) => 
-          <View onTouchEnd={() => {this.setState({showSellModal: true, modalItem: item})}}>
-            <Text 
-              style={styles.item}
-            >
-              {item.name + ": " + item.amount}
-            </Text>
+          <View style={styles.item} onTouchEnd={() => {this.setState({showSellModal: true, modalItem: item})}}>
+            <Image source={item.icon}/>
+            <Text style={styles.text}>{item.name + ": " + item.amount}</Text>
           </View>
         }
         />
@@ -68,9 +66,21 @@ export default class Shop extends React.Component {
 }
 const styles = StyleSheet.create({
   container: {
-   padding: 8,
-   width: '100%',
-   backgroundColor: 'green',
+   flex: 1,
+   paddingTop: 22
+  },
+  item: {
+    flex: 1,
+    flexDirection: 'row',
+    padding: 10,
+    height: 40,
+    width: '100%',
+    alignItems: 'center',
+  },
+  text: {
+    fontSize: 18,
+    padding: 10,
+    height: 44,
   },
   buttons3: {
     flex: 1,
@@ -84,11 +94,6 @@ const styles = StyleSheet.create({
   button: {
     padding: 16,
     width: '100%',
-  },
-  item: {
-    padding: 10,
-    fontSize: 18,
-    height: 50,
   },
 })
 
